@@ -24,13 +24,12 @@ RSpec.describe "Api::V1::Items", type: :request do
       item = create(:item)
 
       get "/api/v1/items/#{item.id}"
-
       item_json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
       expect(item_json.class).to eq(Hash)
-      expect(item_json[:data][:id]).to eq("#{item.id}")
       expect(item_json[:data][:type]).to eq('item')
+      expect(item_json[:data][:id]).to eq("#{item.id}")
       expect(item_json[:data][:attributes][:name]).to eq(item.name)
       expect(item_json[:data][:attributes][:description]).to eq(item.description)
       expect(item_json[:data][:attributes][:unit_price]).to eq(item.unit_price)
@@ -42,15 +41,14 @@ RSpec.describe "Api::V1::Items", type: :request do
       item_params = { name: "Samsung S25+ ", description: "It's just another phone", unit_price: 3000.47, merchant_id: merchant.id }
 
       post '/api/v1/items', params: item_params
-
       item_json = JSON.parse(response.body, symbolize_names: true)
       item = Item.last
 
       expect(response).to be_successful
       expect(item_json.class).to eq(Hash)
       expect(item.name).to eq(item_params[:name])
-      expect(item_json[:data][:id]).to eq("#{item.id}")
       expect(item_json[:data][:type]).to eq('item')
+      expect(item_json[:data][:id]).to eq("#{item.id}")
       expect(item_json[:data][:attributes][:name]).to eq(item_params[:name])
       expect(item_json[:data][:attributes][:description]).to eq(item_params[:description])
       expect(item_json[:data][:attributes][:unit_price]).to eq(item_params[:unit_price])
@@ -69,14 +67,25 @@ RSpec.describe "Api::V1::Items", type: :request do
 
       expect(response).to be_successful
       expect(item_json.class).to eq(Hash)
-      expect(new_item.name).to eq(item_params[:name])
       expect(new_item.name).to_not eq(previous_name)
-      expect(item_json[:data][:id]).to eq("#{item.id}")
+      expect(new_item.name).to eq(item_params[:name])
       expect(item_json[:data][:type]).to eq('item')
+      expect(item_json[:data][:id]).to eq("#{item.id}")
       expect(item_json[:data][:attributes][:name]).to eq(item_params[:name])
       expect(item_json[:data][:attributes][:description]).to eq(item.description)
       expect(item_json[:data][:attributes][:unit_price]).to eq(item.unit_price)
       expect(item_json[:data][:attributes][:merchant_id]).to eq(item.merchant_id)
+    end
+
+    it "can destroy an item" do
+      item = create(:item)
+
+      expect(Item.count).to eq(1)
+      expect{ delete "/api/v1/items/#{item.id}" }.to change(Item, :count).by(-1)
+
+      expect(Item.count).to eq(0)
+      expect(response.status).to eq(204)
+      expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end
