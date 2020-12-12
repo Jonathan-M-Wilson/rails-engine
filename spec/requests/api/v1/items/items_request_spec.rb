@@ -36,6 +36,26 @@ RSpec.describe "Api::V1::Items", type: :request do
     expect(item_json[:data][:attributes][:description]).to eq(item.description)
     expect(item_json[:data][:attributes][:unit_price]).to eq(item.unit_price)
     expect(item_json[:data][:attributes][:merchant_id]).to eq(item.merchant_id)
-  end
+    end
+
+    it "can create a new item" do
+    merchant = create(:merchant)
+    item_params = { name: "Samsung S25+ ", description: "It's just another phone", unit_price: 3000.47, merchant_id: merchant.id }
+
+    post '/api/v1/items', params: item_params
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+    item = Item.last
+
+    expect(response).to be_successful
+    expect(item_json.class).to eq(Hash)
+    expect(item.name).to eq(item_params[:name])
+    expect(item_json[:data][:id]).to eq("#{item.id}")
+    expect(item_json[:data][:type]).to eq('item')
+    expect(item_json[:data][:attributes][:name]).to eq(item_params[:name])
+    expect(item_json[:data][:attributes][:description]).to eq(item_params[:description])
+    expect(item_json[:data][:attributes][:unit_price]).to eq(item_params[:unit_price])
+    expect(item_json[:data][:attributes][:merchant_id]).to eq(item.merchant_id)
+    end
   end
 end
