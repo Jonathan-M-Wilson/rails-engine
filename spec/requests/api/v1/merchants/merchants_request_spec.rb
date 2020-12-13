@@ -51,5 +51,26 @@ RSpec.describe "Api::V1::Merchants", type: :request do
       expect(merchant_json[:data][:id]).to eq("#{merchant.id}")
       expect(merchant_json[:data][:attributes][:name]).to eq(merchant_params[:name])
     end
+
+    it "can update an exisiting merchant" do
+      merchant = create(:merchant)
+      previous_name = merchant.name
+
+      merchant_params = { name: "Random Name" }
+
+      patch "/api/v1/merchants/#{merchant.id}", params: merchant_params
+      updated_merchant = Merchant.find(merchant.id)
+      merchant_json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(response.content_type).to eq("application/json")
+
+      expect(merchant_json.class).to eq(Hash)
+      expect(updated_merchant.name).to_not eq(previous_name)
+      expect(updated_merchant.name).to eq(merchant_params[:name])
+      expect(merchant_json[:data][:type]).to eq('merchant')
+      expect(merchant_json[:data][:id]).to eq("#{merchant.id}")
+      expect(merchant_json[:data][:attributes][:name]).to eq(merchant_params[:name])
+    end
   end
 end
