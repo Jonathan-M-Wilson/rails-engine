@@ -27,12 +27,29 @@ RSpec.describe "Api::V1::Merchants", type: :request do
 
       expect(response).to be_successful
       expect(response.content_type).to eq("application/json")
-      
+
       expect(merchant_json.class).to eq(Hash)
       expect(merchant_json[:data].size).to eq(3)
       expect(merchant_json[:data][:type]).to eq('merchant')
       expect(merchant_json[:data][:id]).to eq("#{merchant.id}")
       expect(merchant_json[:data][:attributes][:name]).to eq(merchant.name)
+    end
+
+    it "can create a new merchant" do
+      merchant_params = { name: "New Name" }
+
+      post '/api/v1/merchants', params: merchant_params
+      merchant_json = JSON.parse(response.body, symbolize_names: true)
+      merchant = Merchant.last
+
+      expect(response).to be_successful
+      expect(response.content_type).to eq("application/json")
+
+      expect(merchant_json.class).to eq(Hash)
+      expect(merchant.name).to eq(merchant_params[:name])
+      expect(merchant_json[:data][:type]).to eq('merchant')
+      expect(merchant_json[:data][:id]).to eq("#{merchant.id}")
+      expect(merchant_json[:data][:attributes][:name]).to eq(merchant_params[:name])
     end
   end
 end
