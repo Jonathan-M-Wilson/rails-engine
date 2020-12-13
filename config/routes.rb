@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
 
       namespace :items do
-        get '/:id/merchant', to: 'merchants#index'
+        get '/:id/merchants', to: 'merchants#index'
       end
 
       namespace :merchants do

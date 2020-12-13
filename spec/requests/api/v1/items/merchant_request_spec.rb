@@ -5,7 +5,7 @@ RSpec.describe 'Item Merchant API' do
     item = create(:item)
 
 
-    get "/api/v1/items/#{item.id}/merchant"
+    get "/api/v1/items/#{item.id}/merchants"
     merchant_json = JSON.parse(response.body, symbolize_names: true)
     merchant = item.merchant
 
