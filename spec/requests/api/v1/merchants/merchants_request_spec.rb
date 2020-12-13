@@ -72,5 +72,16 @@ RSpec.describe "Api::V1::Merchants", type: :request do
       expect(merchant_json[:data][:id]).to eq("#{merchant.id}")
       expect(merchant_json[:data][:attributes][:name]).to eq(merchant_params[:name])
     end
+
+    it "can destroy a merchant" do
+      merchant = create(:merchant)
+
+      expect(Merchant.count).to eq(1)
+      expect{ delete "/api/v1/merchants/#{merchant.id}" }.to change(Merchant, :count).by(-1)
+
+      expect(Merchant.count).to eq(0)
+      expect(response.status).to eq(204)
+      expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 end
