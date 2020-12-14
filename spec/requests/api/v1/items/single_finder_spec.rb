@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Single Find feature' do
-  it 'can search for an item by name, case insensitive' do
+  it 'can search for an item by name, case insensitive or partial match' do
     item = create(:item, name: "unIque nAme")
     create_list(:item, 2)
 
     attribute = "name"
+    query = "Ique"
 
-    get "/api/v1/items/find?#{attribute}=#{item.name}"
+    get "/api/v1/items/find?#{attribute}=#{query}"
     item_json = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
@@ -23,13 +24,14 @@ RSpec.describe 'Single Find feature' do
     expect(item_json[:data][:attributes][:merchant_id]).to eq(item.merchant_id)
   end
 
-  it 'can search for an item by description, case insensitive' do
+  it 'can search for an item by description, case insensitive, or partial match' do
     item = create(:item, description: "unique Description")
     create_list(:item, 2)
 
     attribute = "description"
+    query = "ique"
 
-    get "/api/v1/items/find?#{attribute}=#{item.description}"
+    get "/api/v1/items/find?#{attribute}=#{query}"
     item_json = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
