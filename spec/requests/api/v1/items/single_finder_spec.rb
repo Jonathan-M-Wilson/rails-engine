@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Single Find feature' do
-  it 'can search for an item by name ' do
-    item = create(:item, name: "Unique Name")
+  it 'can search for an item by name, case insensitive' do
+    item = create(:item, name: "unIque nAme")
     create_list(:item, 2)
 
     attribute = "name"
@@ -23,8 +23,8 @@ RSpec.describe 'Single Find feature' do
     expect(item_json[:data][:attributes][:merchant_id]).to eq(item.merchant_id)
   end
 
-  it 'can search for an item by description' do
-    item = create(:item, description: "Unique description")
+  it 'can search for an item by description, case insensitive' do
+    item = create(:item, description: "unique Description")
     create_list(:item, 2)
 
     attribute = "description"
