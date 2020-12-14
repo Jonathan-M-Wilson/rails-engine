@@ -4,4 +4,16 @@ class Merchant < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :invoices, dependent: :destroy
   has_many :transactions, through: :invoices
+
+  scope :find_by_date, ->(param) { where("to_char(#{param.keys.first},'YYYY-MM-DD-HH-MI-SS') ILIKE ?", "%#{param.values.first}%") }
+  scope :find_by_attribute, ->(param) { where("merchants.#{param.keys.first}::text ILIKE ?", "%#{param.values.first}%") }
+
+  def self.search(param)
+    attribute = param.keys.first
+    if %w[created_at updated_at].include?(attribute)
+      find_by_date(param).first
+    else
+      find_by_attribute(param).first
+    end
+  end
 end
