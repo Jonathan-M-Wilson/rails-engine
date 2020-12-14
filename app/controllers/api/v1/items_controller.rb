@@ -18,7 +18,7 @@ class Api::V1::ItemsController < ApplicationController
   def destroy
     Item.destroy(params[:id])
   end
-  
+
   private
 
   def item_params
