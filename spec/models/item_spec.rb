@@ -12,4 +12,17 @@ RSpec.describe Item, type: :model do
     it { should have_many :invoice_items }
     it { should have_many(:invoices).through(:invoice_items) }
   end
+
+  describe 'Methods' do
+    it ".search()" do
+      item = create(:item, name: "unIque nAme")
+      item_2 = create(:item, description: "unique Description")
+
+      param = {"name"=>"unIque nAme"}
+      param_2 = {"description"=>"unique Description"}
+
+      expect(Item.search(param)).to eq(item)
+      expect(Item.search(param_2)).to eq(item_2)
+    end
+  end
 end
