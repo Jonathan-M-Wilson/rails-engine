@@ -11,14 +11,11 @@
 <!--- List issues this pull request closes-->
 
 ## How Has This Been Tested?
+- [ ] All tests passing
 <!--- Please describe in detail how you tested your changes. -->
 <!--- Include details of your testing environment, tests ran to see how -->
 <!--- your change affects other areas of the code, etc. -->
 
-## Refactoring 
-- [ ] This code will need to be refactored
-- [ ] This code has already been refactored
-- [ ] N/A
 
 ## Screenshots (if appropriate):
 
