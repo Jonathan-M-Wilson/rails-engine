@@ -1,6 +1,6 @@
 class Api::V1::Items::SearchController < ApplicationController
   def show
-    render json: ItemSerializer.new(Item.search(permitted_params))
+    render json: ItemSerializer.new(Item.find_item(permitted_params))
   end
 
   private

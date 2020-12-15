@@ -21,8 +21,8 @@ RSpec.describe Item, type: :model do
       param = {"name"=>"unIque nAme"}
       param_2 = {"description"=>"unique Description"}
 
-      expect(Item.search(param)).to eq(item)
-      expect(Item.search(param_2)).to eq(item_2)
+      expect(Item.find_item(param)).to eq(item)
+      expect(Item.find_item(param_2)).to eq(item_2)
     end
   end
 end
