@@ -26,14 +26,9 @@ RSpec.describe Item, type: :model do
     end
 
     it ".find_all_items()" do
-      item = create_list(:item, 3, name: "unIque nAme asfgh")
-      item_2 = create_list(:item, 3, description: "unique description asfgh")
-
-      param = {"name"=>"asfg"}
-      param_2 = {"description"=>"asfg"}
-
+      create_list(:item, 3, name: "unIque nAme")
+      param = {"name"=>"Uni"}
       expect(Item.find_all_items(param).count).to eq(3)
-      expect(Item.find_all_items(param_2).count).to eq(3)
     end
   end
 end
