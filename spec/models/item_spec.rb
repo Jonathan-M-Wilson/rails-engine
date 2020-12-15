@@ -14,15 +14,26 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'Methods' do
-    it ".search()" do
+    it ".find_item()" do
       item = create(:item, name: "unIque nAme")
       item_2 = create(:item, description: "unique Description")
 
       param = {"name"=>"unIque nAme"}
       param_2 = {"description"=>"unique Description"}
 
-      expect(Item.search(param)).to eq(item)
-      expect(Item.search(param_2)).to eq(item_2)
+      expect(Item.find_item(param)).to eq(item)
+      expect(Item.find_item(param_2)).to eq(item_2)
+    end
+
+    it ".find_all_items()" do
+      item = create_list(:item, 3, name: "unIque nAme")
+      item_2 = create_list(:item, 3, description: "unique description")
+
+      param = {"name"=>"unI"}
+      param_2 = {"description"=>"unIq"}
+
+      expect(Item.find_all_items(param).count).to eq(3)
+      expect(Item.find_all_items(param_2).count).to eq(3)
     end
   end
 end

@@ -1,6 +1,6 @@
 class Api::V1::Merchants::SearchController < ApplicationController
   def show
-    render json: MerchantSerializer.new(Merchant.search(permitted_params))
+    render json: MerchantSerializer.new(Merchant.find_merchant(permitted_params))
   end
 
   private

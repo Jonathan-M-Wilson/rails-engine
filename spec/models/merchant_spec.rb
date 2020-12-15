@@ -11,15 +11,15 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe 'Methods' do
-    it ".search()" do
+    it ".find_merchant()" do
       merchant = create(:merchant, name: "unIque nAme")
       merchant_2 = create(:merchant, id: 2)
 
       param = {"name"=>"unIque nAme"}
       param_2 = {"id"=>"2"}
 
-      expect(Merchant.search(param)).to eq(merchant)
-      expect(Merchant.search(param_2)).to eq(merchant_2)
+      expect(Merchant.find_merchant(param)).to eq(merchant)
+      expect(Merchant.find_merchant(param_2)).to eq(merchant_2)
     end
   end
 end
