@@ -21,5 +21,11 @@ RSpec.describe Merchant, type: :model do
       expect(Merchant.find_merchant(param)).to eq(merchant)
       expect(Merchant.find_merchant(param_2)).to eq(merchant_2)
     end
+
+    it ".find_all_merchants()" do
+      create_list(:merchant, 3, name: "unIque nAme")
+      param = {"name"=>"unIque nAme"}
+      expect(Merchant.find_all_merchants(param).size).to eq(3)
+    end
   end
 end
