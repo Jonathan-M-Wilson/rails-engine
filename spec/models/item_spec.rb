@@ -14,7 +14,7 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'Methods' do
-    it ".search()" do
+    it ".find_item()" do
       item = create(:item, name: "unIque nAme")
       item_2 = create(:item, description: "unique Description")
 
