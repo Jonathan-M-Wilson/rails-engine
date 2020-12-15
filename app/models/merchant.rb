@@ -16,4 +16,13 @@ class Merchant < ApplicationRecord
       find_by_attribute(param).first
     end
   end
+
+  def self.find_all_merchants(param)
+    attribute = param.keys.first
+    if %w[created_at updated_at].include?(attribute)
+      find_by_date(param)
+    else
+      find_by_attribute(param)
+    end
+  end
 end
