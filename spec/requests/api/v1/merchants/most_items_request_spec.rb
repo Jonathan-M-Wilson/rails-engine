@@ -28,7 +28,7 @@ describe "Merchants with most items sold" do
 
     quantity = 2
 
-    get "/api/v1/merchants/most_items_sold?quantity=#{quantity}"
+    get "/api/v1/merchants/most_items?quantity=#{quantity}"
     most_items_sold_json = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
