@@ -57,5 +57,11 @@ RSpec.describe Merchant, type: :model do
     it ".most_items_sold()" do
       expect(Merchant.most_items_sold(1)).to eq([@merchant_2])
     end
+
+    it ".revenue_by_date()" do
+      start_date = "2020-12-12"
+      end_date = "2020-12-17"
+      expect(Merchant.revenue_by_date(start_date, end_date)).to eq(1665.3)
+    end
   end
 end
