@@ -55,6 +55,14 @@ class Merchant < ApplicationRecord
     .merge(Invoice.successful)
     .where(created_at: Date.parse(start_date)
     .beginning_of_day..Date.parse(end_date).end_of_day)
-    .sum('invoice_items.quantity * invoice_items.unit_price').round(2)
+    .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
+
+  def revenue
+    invoices
+    .joins(:invoice_items, :transactions)
+    .merge(Transaction.successful)
+    .merge(Invoice.successful)
+    .sum("quantity * unit_price")
   end
 end
