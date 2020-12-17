@@ -46,6 +46,7 @@
   * [Configuration](#configuration)
   * [Testing](#testing)
   * [Schema](#schema)
+  * [Endpoints](#endpoints)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [Contact](#contact)
@@ -105,6 +106,67 @@ After running your migrations, your schema will look something like this!
     <img src="app/assets/images/schema.png" alt="database" width="900" height="500">
 </p>
 
+
+
+### Endpoints
+Below are listed some examples of the endpoints within Rails Engine. To see all endpoint available, please checkout the [docs](https://github.com/Jonathan-M-Wilson/rails-engine)!
+
+
+
+##### GET /merchants
+List of all merchants recorded in the database
+
+response
+```
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "merchant",
+            "attributes": {
+                "name": "Schroeder-Jerde"
+            }
+        },
+        {
+            "id": "2",
+            "type": "merchant",
+            "attributes": {
+                "name": "Klein, Rempel and Jones"
+            }
+        }
+    ]
+}
+```
+
+
+##### GET /merchants/1
+Information about a specific merchant
+```
+{
+    "data": {
+        "id": "1",
+        "type": "merchant",
+        "attributes": {
+            "name": "Schroeder-Jerde"
+        }
+    }
+}
+```
+
+
+##### Get /merchants/5/revenue
+Total revenue for a specified merchant.
+```
+{
+    "data": {
+        "id": null,
+        "type": "revenue",
+        "attributes": {
+            "revenue": 714320.6700000002
+        }
+    }
+}
+```
 
 <!-- ROADMAP -->
 ## Roadmap
