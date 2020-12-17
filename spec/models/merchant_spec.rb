@@ -61,7 +61,12 @@ RSpec.describe Merchant, type: :model do
     it ".revenue_by_date()" do
       start_date = "2020-12-12"
       end_date = "2020-12-17"
-      expect(Merchant.revenue_by_date(start_date, end_date)).to eq(1665.3)
+
+      expect(Merchant.revenue_by_date(start_date, end_date).round(2)).to eq(1665.3)
+    end
+
+    it ".revenue" do
+      expect(@merchant_1.revenue.round(2)).to eq(389.7)
     end
   end
 end
