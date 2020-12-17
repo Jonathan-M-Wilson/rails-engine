@@ -103,7 +103,7 @@ Additionally, running ```bundle exec rspec``` will show you the quick summary of
 After running your migrations, your schema will look something like this!
 <br />
 <p align="center">
-    <img src="app/assets/images/schema.png" alt="database" width="900" height="500">
+    <img src="app/assets/images/schema.png" alt="database" width="800" height="500">
 </p>
 
 
