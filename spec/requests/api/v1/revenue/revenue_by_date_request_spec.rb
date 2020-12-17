@@ -29,6 +29,8 @@ describe "Revenue by date" do
     start_date = "2020-12-12"
     end_date = "2020-12-17"
 
+    expected_amount = Merchant.revenue_by_date(start_date, end_date)
+
     get "/api/v1/revenue?start=#{start_date}&end=#{end_date}"
     revenue_by_date_json = JSON.parse(response.body, symbolize_names: true)
 
@@ -40,6 +42,6 @@ describe "Revenue by date" do
     expect(revenue_by_date_json[:data]).to have_key(:type)
     expect(revenue_by_date_json[:data]).to have_key(:attributes)
     expect(revenue_by_date_json[:data][:attributes]).to have_key(:revenue)
-    expect(revenue_by_date_json[:data][:attributes][:revenue]).to eq(1665.3)
+    expect(revenue_by_date_json[:data][:attributes][:revenue]).to eq(expected_amount)
   end
 end
