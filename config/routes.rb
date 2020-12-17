@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
       #revenue
         get '/most_revenue', to: 'revenue#index'
+        get '/:id/revenue', to: 'revenue#show'
       end
 
       resources :revenue, only: [:index]
